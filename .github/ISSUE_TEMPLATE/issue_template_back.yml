@@ -38,23 +38,18 @@ body:
     validations:
       required: true
 
-  - type: textarea
-    id: api_interface
-    attributes:
-      label: "🔗 API / Interface 명세 (FE-BE 협업)"
-      placeholder: "프론트와 백엔드가 주고받을 데이터 구조를 정의하세요.\n- Endpoint: /api/v1/...\n- Method: GET/POST\n- Key Params: { 'id': Long, 'status': String }"
-
-  - type: textarea
-    id: checklist
+- type: checkboxes
+    id: work_checklist
     attributes:
       label: "✅ 작업 체크리스트"
-      value: |
-        - [ ] 코드 수정 완료
-        - [ ] 작업 시작
-        - [ ] 추가 기능 개발
-        - [ ] 버그 수정
-    validations:
-      required: true
+      description: "해당되는 작업 항목을 체크해 주세요."
+      options:
+        - label: "코드 수정 완료"
+        - label: "작업 시작 (브랜치 생성)"
+        - label: "추가 기능 개발"
+        - label: "버그 수정 및 QA 완료"
+        - label: "백엔드 API 연동 확인"
+        - label: "코드 컨벤션 준수 및 린트 체크"
 
   - type: dropdown
     id: environment
