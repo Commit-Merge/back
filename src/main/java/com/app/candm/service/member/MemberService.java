@@ -1,0 +1,31 @@
+package com.app.candm.service.member;
+
+import com.app.candm.common.enumeration.Provider;
+import com.app.candm.dto.member.MemberDTO;
+import com.app.candm.repository.member.MemberDAO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.lang.reflect.Member;
+
+@Service
+@RequiredArgsConstructor
+@Transactional(rollbackFor = Exception.class)
+public class MemberService {
+    private final MemberDAO memberDAO;
+
+//    이메일 검사(true: 사용가능)
+    public boolean checkEmail(String memberEmail){
+        return memberDAO.findByMemberEmail(memberEmail).isEmpty();
+    }
+
+//    화면 실제 회원가입
+    public void join(MemberDTO memberDTO){
+        memberDTO.setProvider(Provider.CANDM);
+        memberDAO.save(memberDTO);
+        memberDAO.saveOauth(memberDTO.toOauthVO());
+    }
+
+
+}
