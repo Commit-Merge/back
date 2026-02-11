@@ -143,6 +143,10 @@ svg {
     line-height: 40px;
 }
 
+.join-form {
+    width: 100%;
+}
+
 .join-wrap {
     align-items: flex-start;
     flex-direction: column;
@@ -162,6 +166,24 @@ svg {
 
 .join-group-width{
     width: 100%;
+}
+
+#duplication-message {
+    color: red;
+    font-weight: 400;
+    letter-spacing: -.26px;
+    font-size: 13px;
+    line-height: 18px;
+    display: none;
+}
+
+#duplication-password {
+    color: red;
+    font-weight: 400;
+    letter-spacing: -.26px;
+    font-size: 13px;
+    line-height: 18px;
+    display: none;
 }
 
 .join-div{
@@ -213,7 +235,7 @@ svg {
 .passwordconfirmwrite,
 .passwordwrite,
 .phonewrite,
-.emailwrite
+.emailwrite,
 .namewrite{
     cursor: text;
     background-color: #00000000;

@@ -1,5 +1,5 @@
 drop table tbl_member;
-DELETE FROM tbl_member where id=1;
+DELETE FROM tbl_member where id=6;
 create table tbl_member
 (
     id bigint unsigned auto_increment primary key,
@@ -11,3 +11,5 @@ create table tbl_member
     created_datetime datetime default current_timestamp(),
     updated_datetime datetime default current_timestamp()
 );
+
+select * from tbl_member;

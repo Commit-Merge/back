@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.lang.reflect.Member;
+import java.util.Optional;
+
 @Slf4j
 @SpringBootTest
 public class MemberMapperTests {
@@ -14,7 +17,7 @@ public class MemberMapperTests {
     private MemberMapper memberMapper;
 
     @Test
-    public void testInsert(){
+    public void testInsert() {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setMemberEmail("tjdgh12@naver.com");
         memberDTO.setMemberPassword("1234");
@@ -23,7 +26,16 @@ public class MemberMapperTests {
         memberDTO.setProvider(Provider.CANDM);
 
         memberMapper.insert(memberDTO);
-        memberMapper.insertOauth(memberDTO.toOAuthVO());
+        memberMapper.insertOauth(memberDTO.toOauthVO());
     }
 
-}
+    @Test
+    public void testFindBymemberEmail(){
+            Optional<MemberDTO> foundMember = memberMapper.selectByMemberEmail("tjdgh12@naver.com");
+            log.info("{}.........",foundMember.isEmpty());
+        }
+
+
+    }
+
+

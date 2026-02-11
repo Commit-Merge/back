@@ -24,54 +24,58 @@
                 <div class="mainword-wrap">
                     <div class="mainword">간편하게 회원가입을 해보세요</div>
                 </div>
-                <div class="join-wrap">
-                    <div class="join-group">
-                        <div class="join-group-width">
-                            <div class="join-div">
-                                <div class="email-wrap">
-                                    <div class="email-inner">
-                                        <div class="email-word">
-                                            <input placeholder="이메일을 입력하세요." class="emailwrite" type="email">
+                <form action="/member/join" method="post" name="joinForm" class="join-form">
+                    <div class="join-wrap">
+                        <div class="join-group">
+                            <div class="join-group-width">
+                                <div class="join-div">
+                                    <div class="email-wrap">
+                                        <div class="email-inner">
+                                            <div class="email-word">
+                                                <input placeholder="이메일을 입력하세요." name="memberEmail" class="emailwrite" type="email" autocomplete="off">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="name-wrap">
-                                    <div class="name-inner">
-                                        <div class="name-word">
-                                            <input placeholder="이름을 입력하세요." class="namewrite" type="text">
+                                    <p id="duplication-message">중복된 이메일입니다.</p>
+                                    <div class="name-wrap">
+                                        <div class="name-inner">
+                                            <div class="name-word">
+                                                <input placeholder="이름을 입력하세요." name="memberName" class="namewrite" type="text" autocomplete="off">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="phone-wrap">
-                                    <div class="phone-inner">
-                                        <div class="phone-word">
-                                            <input placeholder="폰 번호를 입력하세요." class="phonewrite" type="tel">
+                                    <div class="phone-wrap">
+                                        <div class="phone-inner">
+                                            <div class="phone-word">
+                                                <input placeholder="폰 번호를 입력하세요." name="memberPhoneNumber" class="phonewrite" type="tel" autocomplete="off">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="password-wrap">
-                                    <div class="password-inner">
-                                        <div class="password-word">
-                                            <input placeholder="패스워드를 입력하세요." class="passwordwrite" type="password">
+                                    <div class="password-wrap">
+                                        <div class="password-inner">
+                                            <div class="password-word">
+                                                <input placeholder="패스워드를 입력하세요." name="memberPassword" class="passwordwrite" type="password" autocomplete="off">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="passwordconfirm-wrap">
-                                    <div class="passwordconfirm-inner">
-                                        <div class="passwordconfirm-word">
-                                            <input placeholder="패스워드를 다시 입력하세요." class="passwordconfirmwrite" type="password">
+                                    <div class="passwordconfirm-wrap">
+                                        <div class="passwordconfirm-inner">
+                                            <div class="passwordconfirm-word">
+                                                <input placeholder="패스워드를 다시 입력하세요." class="passwordconfirmwrite" type="password" autocomplete="off">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="goingwrap">
-                                    <button class="goingbutton" disabled> <!-- 활성화시 disabled를 빼주세요. -->
-                                        <span class="goingword">회원가입</span>
-                                    </button>
+                                    <p id="duplication-password">동일한 비밀번호가 아닙니다.</p>
+                                    <div class="goingwrap">
+                                        <button class="goingbutton" type="button"> <!-- 활성화시 disabled를 빼주세요. -->
+                                            <span class="goingword">회원가입</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -156,4 +160,7 @@ function animate() {
     animate();
 </script>
 </body>
+<script src="/js/member/member-join/event.js"></script>
+<script src="/js/member/member-join/service.js"></script>
+<script src="/js/member/member-join/layout.js"></script>
 </html>

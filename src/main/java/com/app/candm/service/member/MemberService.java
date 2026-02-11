@@ -15,9 +15,17 @@ import java.lang.reflect.Member;
 public class MemberService {
     private final MemberDAO memberDAO;
 
+//    이메일 검사(true: 사용가능)
+    public boolean checkEmail(String memberEmail){
+        return memberDAO.findByMemberEmail(memberEmail).isEmpty();
+    }
+
+//    화면 실제 회원가입
     public void join(MemberDTO memberDTO){
         memberDTO.setProvider(Provider.CANDM);
         memberDAO.save(memberDTO);
-        memberDAO.saveOauth(memberDTO.toOAuthVO());
+        memberDAO.saveOauth(memberDTO.toOauthVO());
     }
+
+
 }

@@ -6,13 +6,18 @@ import com.app.candm.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class MemberDAO {
-
     private final MemberMapper memberMapper;
 //    회원가입
     public void save(MemberDTO memberDTO){memberMapper.insert(memberDTO);}
 //    oauth
     public void saveOauth(OauthVO oauthVO){memberMapper.insertOauth(oauthVO);}
+//    이메일검사
+    public Optional<MemberDTO> findByMemberEmail(String memberEmail){
+        return memberMapper.selectByMemberEmail(memberEmail);
+    }
 }

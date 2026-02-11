@@ -35,7 +35,7 @@ public class MemberDTO {
                 .build();
     }
 
-    public OauthVO toOAuthVO() {
+    public OauthVO toOauthVO() {
         return OauthVO.builder().id(id).provider(provider).build();
     }
 }
