@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class MyPageController {
 
-    @GetMapping("mypage")
-    public String GotoMyPage(){
+    @GetMapping("")
+    public String gotoMyPage(){
         log.info("들어옴!");
-        return "/mypage/mypage";
+        return "mypage/mypage";
     }
 }
