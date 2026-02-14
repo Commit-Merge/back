@@ -1,8 +1,11 @@
 package com.app.candm.controller.mypage;
 
+import com.app.candm.dto.member.MemberDTO;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,8 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MyPageController {
 
     @GetMapping("")
-    public String gotoMyPage(){
-        log.info("들어옴!");
+    public String gotoMyPage(HttpSession session, Model model){
+        MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+        if(memberDTO == null){
+            return "redirect:/member/login";
+        }
+        log.info(memberDTO.toString());
+        model.addAttribute("member", memberDTO);
+        model.addAttribute("isOwner", true);
         return "mypage/mypage";
+
     }
 }
