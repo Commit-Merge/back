@@ -7,8 +7,8 @@
     <title>마이페이지</title>
     <link rel="stylesheet" href="/css/mypage/mypage.css">
     <link rel="stylesheet" href="/css/mypage/mypage-sub-style.css">
-    <script src="/static/js/mypage/logo-carousel.js" defer></script>
-    <script src="/js/" defer></script>
+    <script src="/js/mypage/logo-carousel.js" defer></script>
+    <script src="/js/mypage/tab-switch.js" defer></script>
     <script src="/js/mypage/mypage.js" defer></script>
 </head>
 
@@ -32,12 +32,12 @@
                                 <!-- 본인만 보이는 프로필 편집 input -->
                                 <input type="file" class="profile-file" id="owner-profile-input">
                                 <div class="user-profile">
-                                    <img src="https://i.pravatar.cc/150?img=12" alt="profile-img" class="pro-img">
+                                    <img src="/image/profiles/basicprofile.jpg" alt="profile-img" class="pro-img">
                                 </div>
                             </div>
                             <div class="user-nickname-div">
                                 <div class="user-nicknamewithcheck">
-                                    <p class="user-nickname-word">Elon Musk</p>
+                                    <p class="user-nickname-word" th:text="*{member.memberName}"></p>
                                     <div class="user-nickname-check">
                                         <div class="user-nickname-check-img-wrap">
                                             <svg aria-label="icon" color="foregrounds.neutral.primary"
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         <!-- 본인일 때 보이는 버튼 -->
-                        <div class="user-profile-edit-wrap" id="owner-profile-buttons">
+                        <div class="user-profile-edit-wrap" id="owner-profile-buttons" th:if="${isOwner}">
                             <button type="button" class="user-prorfile-edit-button">
                                 <span class="user-profile-edit-word">프로필 편집</span>
                             </button>
@@ -80,7 +80,7 @@
                             </button>
                         </div>
                         <!-- 타인일 때 보이는 버튼 -->
-                        <div class="user-profile-edit-wrap" id="visitor-profile-buttons">
+                        <div class="user-profile-edit-wrap" id="visitor-profile-buttons" th:unless="${isOwner}">
                             <button type="button" class="user-prorfile-edit-button" id="follow-button">
                                 <span class="user-profile-edit-word">팔로우</span>
                             </button>
@@ -218,7 +218,7 @@
                                                 <div class="feed-header-info-name-section">
                                                     <div class="feed-header-info-name-wrapper">
                                                         <div class="feed-header-info-name">
-                                                            <p class="name-tag">Elon Musk</p>
+                                                            <p class="name-tag"></p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -270,7 +270,7 @@
                                                 <div class="feed-header-info-name-section">
                                                     <div class="feed-header-info-name-wrapper">
                                                         <div class="feed-header-info-name">
-                                                            <p class="name-tag">Elon Musk</p>
+                                                            <p class="name-tag"></p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -793,12 +793,12 @@
                         <button type="button" id="profile-container" class="tab-container active">
                             <div class="profile-head">
                                 <div class="user-profile type2">
-                                    <img src="https://i.pravatar.cc/150?img=12" alt="profile-img" class="pro-img"
+                                    <img src="/image/profiles/basicprofile.jpg" alt="profile-img" class="pro-img"
                                         style="color: transparent;border-radius: 4.8px;height: 32px;width: 32px;object-fit: cover;">
                                 </div>
                             </div>
                             <div class="profile-content">
-                                <p class="user-nickname">Elon Musk</p>
+                                <p class="user-nickname" th:text="${member.memberName}"></p>
                                 <p class="user-subTitle">내 정보</p>
                             </div>
                         </button>
@@ -869,7 +869,7 @@
                         <div id="section-container" class="section-container">
                             <div class="section-left">
                                 <div class="section-profile type2">
-                                    <img src="https://i.pravatar.cc/150?img=12" alt="profile-img" class="pro-img"
+                                    <img src="/image/profiles/basicprofile.jpg" alt="profile-img" class="pro-img"
                                         style="color: transparent;border-radius: 4.8px;height: 32px;width: 32px;object-fit: cover;">
                                 </div>
                                 <div class="section-content">
@@ -886,7 +886,7 @@
                         <div class="content-container">
                             <div class="content-left">
                                 <p>이름</p>
-                                <p>Elon Musk</p>
+                                <p th:text="${member.memberName}"></p>
                             </div>
                             <div class="content-right">
                                 <button id="nameChange" class="button button-white change" type="button">
@@ -1128,7 +1128,7 @@
 <svg>
 <symbol id="close-outline" viewBox="0 0 24 24"><path d="M17.435 5.435a.8.8 0 1 1 1.13 1.13L13.131 12l5.434 5.435a.8.8 0 1 1-1.13 1.13L12 13.131l-5.435 5.434a.8.8 0 1 1-1.13-1.13L10.869 12 5.435 6.565a.8.8 0 1 1 1.13-1.13L12 10.869z"></path></symbol>
 </svg>
-    <script src="../../static/js/mypage/event.js"></script>
+    <script src="/static/js/mypage/event.js"></script>
 </body>
 
 </html>

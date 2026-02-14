@@ -21,15 +21,17 @@
 
 <!--    이메일 찾기 -->
     <select id="selectByMemberEmail">
-        select id, member_email, member_password, member_name, member_status, created_datetime, updated_datetime
-        from tbl_member
+        select m.id, m.member_email, m.member_password, m.member_name, m.member_status, m.created_datetime, m.updated_datetime, o.provider
+        from tbl_member m join tbl_oauth o
+        on m.id = o.id
         where member_email = #{memberEmail}
     </select>
 
 <!--    일반 로그인-->
     <select id="selectMemberForLogin">
-        select id, member_email, member_password, member_name, member_phone_number, member_status, created_datetime, updated_datetime
-        from tbl_member
+        select m.id, m.member_email, m.member_password, m.member_name, m.member_status, m.created_datetime, m.updated_datetime, o.provider
+        from tbl_member m join tbl_oauth o
+        on m.id = o.id
         where member_email = #{memberEmail} and member_password = #{memberPassword}
     </select>
 </mapper>
