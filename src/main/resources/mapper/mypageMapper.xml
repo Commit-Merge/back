@@ -9,7 +9,11 @@
         where m.id = #{memberId}
     </select>
 
-
+<!--    경력 입력-->
+    <insert id="careerInsert" useGeneratedKeys="true" keyProperty="id">
+        insert into tbl_member_career(affiliation_title, member_employment_type, member_role, member_skill, intro_detailed, start_date, end_date, member_id)
+        VALUES (#{affiliationTitle}, #{memberEmploymentType},#{memberRole}, #{memberSkill}, #{introDetailed}, #{startDate}, #{endDate}, #{memberId})
+    </insert>
 
 
 
