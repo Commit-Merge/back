@@ -34,7 +34,7 @@ public class TeamController {
     }
 
     // 팀명 중복 검사
-    @GetMapping("team-regist")
+    @GetMapping(value = "team-regist", params = "teamTitle")
     @ResponseBody
     public ResponseEntity<Boolean> checkTitle(@RequestParam String teamTitle) {
         // 존재하지 않으면 true (사용 가능)
@@ -42,7 +42,7 @@ public class TeamController {
     }
 
     // 팀 URL 중복 검사
-    @GetMapping("team-regist")
+    @GetMapping(value = "team-regist", params = "teamUrl")
     @ResponseBody
     public ResponseEntity<Boolean> checkUrl(@RequestParam String teamUrl) {
         // 존재하지 않으면 true (사용 가능)
