@@ -1,10 +1,7 @@
 package com.app.candm.controller.mypage;
 
 import com.app.candm.dto.member.MemberDTO;
-import com.app.candm.dto.mypage.MemberCareerDTO;
-import com.app.candm.dto.mypage.MemberEducationDTO;
-import com.app.candm.dto.mypage.MemberWithCareerDTO;
-import com.app.candm.dto.mypage.MemberWithEducationDTO;
+import com.app.candm.dto.mypage.*;
 import com.app.candm.service.mypage.MyPageService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
 
 @Controller
 @RequiredArgsConstructor
@@ -66,9 +66,6 @@ public class MyPageController {
         String startDate = memberEducationDTO.getStartYear() + "-" + memberEducationDTO.getStartMonth();
         String endDate = memberEducationDTO.getEndYear() + "-" + memberEducationDTO.getEndMonth();
 
-        log.info("{}", startDate);
-        log.info("{}", endDate);
-
         memberEducationDTO.setStartDate(startDate);
         memberEducationDTO.setEndDate(endDate);
 
@@ -87,4 +84,18 @@ public class MyPageController {
         myPageService.deleteEducation(id);
     }
 
+//    ================================================활동====================================================
+    @PostMapping("activity/regist")
+    @ResponseBody
+    public void activityRegist(@RequestBody MemberActivityDTO memberActivityDTO, @RequestParam("file") ArrayList<MultipartFile> multipartFiles){
+        String startDate = memberActivityDTO.getStartYear() + "-" + memberActivityDTO.getStartMonth();
+        String endDate = memberActivityDTO.getEndYear() + "-" + memberActivityDTO.getEndMonth();
+
+        memberActivityDTO.setStartDate(startDate);
+        memberActivityDTO.setEndDate(endDate);
+
+        log.info("memberEducationDTO : {}",memberActivityDTO);
+
+        myPageService.regist(memberActivityDTO, multipartFiles);
+    }
 }

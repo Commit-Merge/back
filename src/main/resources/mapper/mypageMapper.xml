@@ -44,6 +44,12 @@
         where id = #{id}
     </delete>
 
+<!-- ===========================================================활동========================================================   -->
+
+    <insert id="activityInsert" useGeneratedKeys="true" keyProperty="id">
+        insert into tbl_member_activity(award_title, activity_type, start_date, end_date, member_id)
+        values (#{awardTitle}, #{activityType}, #{startDate}, #{endDate}, #{memberId})
+    </insert>
 
 </mapper>
 

@@ -34,6 +34,8 @@ changeModalBtns.forEach(changeModalBtn => {
     })
 })
 
+//===============================================경력 등록==========================================================
+
 const registerBtn = document.getElementById("save-career-btn");
 const affilationTitle = document.getElementById("career-company");
 const careerType = document.getElementById("career-type");
@@ -94,7 +96,7 @@ careerContainer.addEventListener("click", async (e) => {
     }
 })
 
-
+// ================================================학력 등록=======================================================
 const educationTitle = document.getElementById("edu-school");
 const educationType = document.getElementById("edu-type");
 const educationMajor = document.getElementById("edu-major");
@@ -125,10 +127,6 @@ eduRegisterBtn.addEventListener("click", async (e) => {
     })
     await myPageEducationService.getEducationList(memberId, educationLayout.showList)
 
-    console.log(eduStartYear.value)
-    console.log(eduEndYear.value)
-    console.log(eduStartMonth.value)
-    console.log(eduEndMonth.value)
 
     modalInput.forEach(modal => {
         modal.querySelectorAll("input, textarea").forEach(el => el.value = "");
@@ -147,3 +145,31 @@ eduContainer.addEventListener("click", async (e) => {
         await myPageEducationService.getEducationList(memberId, educationLayout.showList);
     }
 })
+
+// =================================활동 내역 등록===========================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

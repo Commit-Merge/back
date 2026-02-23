@@ -1,5 +1,6 @@
 package com.app.candm.mapper;
 
+import com.app.candm.domain.MemberActivityVO;
 import com.app.candm.domain.MemberCareerVO;
 import com.app.candm.domain.MemberEducationVO;
 import com.app.candm.dto.member.MemberDTO;
@@ -36,5 +37,12 @@ public interface MyPageMapper {
 
 //    삭제
     public void deleteEducation(Long id);
+
+//    ====================================================활동내역==================================================
+
+//    추가
+    public void activityInsert(MemberActivityVO memberActivityVO);
+
+
 
 }
