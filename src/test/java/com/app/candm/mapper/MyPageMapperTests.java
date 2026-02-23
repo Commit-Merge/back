@@ -1,10 +1,14 @@
 package com.app.candm.mapper;
 
+import com.app.candm.domain.MemberCareerVO;
 import com.app.candm.dto.mypage.MemberCareerDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
@@ -12,6 +16,8 @@ public class MyPageMapperTests {
 
     @Autowired
     private MyPageMapper mypageMapper;
+    @Autowired
+    private MemberMapper memberMapper;
 
     @Test
     public void testInsert(){
@@ -27,7 +33,21 @@ public class MyPageMapperTests {
         memberCareerDTO.setMemberId(4L);
 
         log.info("{},,,,,,,,,,,,,",memberCareerDTO);
-        mypageMapper.careerInsert(memberCareerDTO);
+        mypageMapper.careerInsert(memberCareerDTO.toMemberCareerVO());
     }
+
+    @Test
+    public void testFindById(){
+//        Optional<MemberCareerDTO> foundCareer = mypageMapper.selectById(5L);
+//        log.info("{},,,,,,,,,,,,,,,,,", foundCareer.isEmpty());
+        List<MemberCareerDTO> careers = mypageMapper.selectAllByMemberId(4L);
+        log.info("{},,,,,,,,,,,,,,,,,",careers);
+    }
+
+    @Test
+    public void testDelete(){
+        mypageMapper.delete(30L);
+    }
+
 
 }
