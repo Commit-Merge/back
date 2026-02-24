@@ -1,7 +1,11 @@
 package com.app.candm.mapper;
 
+import com.app.candm.common.enumeration.FileContentType;
 import com.app.candm.domain.MemberCareerVO;
 import com.app.candm.domain.MemberEducationVO;
+import com.app.candm.dto.FileDTO;
+import com.app.candm.dto.mypage.MemberActivityDTO;
+import com.app.candm.dto.mypage.MemberActivityFileDTO;
 import com.app.candm.dto.mypage.MemberCareerDTO;
 import com.app.candm.dto.mypage.MemberEducationDTO;
 import com.app.candm.repository.mypage.MemberEducationDAO;
@@ -10,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +26,10 @@ public class MyPageMapperTests {
     private MyPageMapper mypageMapper;
     @Autowired
     private MemberMapper memberMapper;
+    @Autowired
+    private FileMapper fileMapper;
+    @Autowired
+    private MemberActivityFileMapper memberActivityFileMapper;
 
     @Test
     public void testInsert(){
@@ -79,4 +88,47 @@ public class MyPageMapperTests {
         mypageMapper.deleteEducation(6L);
     }
 
+    @Test
+    public void testFileInsert(){
+        FileDTO fileDTO = new FileDTO();
+        MemberActivityFileDTO memberActivityFileDTO = new MemberActivityFileDTO();
+
+        fileDTO.setFilePath("C:\\gb_0900_hsh\\spring\\workspace\\candm\\src\\main\\resources\\static\\image\\profiles");
+        fileDTO.setFileName("donald_trump.png");
+        fileDTO.setFileOriginalName("donald_trump.png");
+        fileDTO.setFileSize("150px");
+        fileDTO.setFileContentType(FileContentType.IMAGE);
+//        fileDTO.setMemberId(4L);
+        memberActivityFileDTO.setId(2L);
+        memberActivityFileDTO.setMemberId(4L);
+
+        fileMapper.insert(fileDTO);
+        memberActivityFileMapper.insert(memberActivityFileDTO.toMemberActivityFileVO());
+        log.info("{}",fileDTO);
+    }
+
+    @Test
+    public void testMemberActivityInsert(){
+        MemberActivityDTO memberActivityDTO = new MemberActivityDTO();
+        List<MemberActivityFileDTO> fileList = new ArrayList<>();
+
+        MemberActivityFileDTO activityFile = new MemberActivityFileDTO();
+
+        activityFile.setFilePath("C:\\gb_0900_hsh\\spring\\workspace\\candm\\src\\main\\resources\\static\\image\\profiles");
+        activityFile.setFileName("donald_trump.png");
+        activityFile.setFileOriginalName("donald_trump.png");
+        activityFile.setFileSize("150px");
+        activityFile.setFileContentType(FileContentType.IMAGE);
+
+        fileList.add(activityFile);
+
+        memberActivityDTO.setAwardTitle("운전면허증");
+        memberActivityDTO.setActivityType("자격증");
+        memberActivityDTO.setStartDate("2024-02");
+        memberActivityDTO.setEndDate("2024-02");
+        memberActivityDTO.setMemberId(4L);
+        memberActivityDTO.setActivityFiles(fileList);
+
+        mypageMapper.activityInsert(memberActivityDTO.toMemberActivityVO()); // 🔥 실제 저장 호출
+    }
 }

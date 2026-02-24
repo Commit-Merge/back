@@ -34,6 +34,8 @@ changeModalBtns.forEach(changeModalBtn => {
     })
 })
 
+//===============================================경력 등록==========================================================
+
 const registerBtn = document.getElementById("save-career-btn");
 const affilationTitle = document.getElementById("career-company");
 const careerType = document.getElementById("career-type");
@@ -94,7 +96,7 @@ careerContainer.addEventListener("click", async (e) => {
     }
 })
 
-
+// ================================================학력 등록=======================================================
 const educationTitle = document.getElementById("edu-school");
 const educationType = document.getElementById("edu-type");
 const educationMajor = document.getElementById("edu-major");
@@ -125,10 +127,6 @@ eduRegisterBtn.addEventListener("click", async (e) => {
     })
     await myPageEducationService.getEducationList(memberId, educationLayout.showList)
 
-    console.log(eduStartYear.value)
-    console.log(eduEndYear.value)
-    console.log(eduStartMonth.value)
-    console.log(eduEndMonth.value)
 
     modalInput.forEach(modal => {
         modal.querySelectorAll("input, textarea").forEach(el => el.value = "");
@@ -147,3 +145,70 @@ eduContainer.addEventListener("click", async (e) => {
         await myPageEducationService.getEducationList(memberId, educationLayout.showList);
     }
 })
+
+// =================================활동 내역 등록===========================================================
+
+const activityTitle = document.getElementById("activity-title");
+const activityType = document.getElementById("activity-type");
+const actStartYear = document.getElementById("activity-start-year");
+const actStartMonth = document.getElementById("activity-start-month");
+const activityFile = document.getElementById("activity-skills");
+const activityRegisterBtn = document.getElementById("save-activity-btn");
+const activityModal = document.getElementById("setting-modal");
+
+activityRegisterBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    // 일반데이터 추가
+    formData.append("awardTitle", activityTitle.value);
+    formData.append("activityType", activityType.value);
+    formData.append("activityStartYear", actStartYear.value);
+    formData.append("activityStartMonth", actStartMonth.value);
+    formData.append("memberId", memberId);
+
+    FileList.prototype.forEach = Array.prototype.forEach;
+
+    // 다중 파일 추가
+    const files = activityFile.files;
+    files.forEach((file) => {
+        file.addEventListener("change", (e) => {
+            e.target.files.forEach((file) => {
+                if(file.size / 1024 / 1024 > 10){
+                    return alert("파일이 너무 큽니다.");
+                }
+            })
+        })
+    })
+    for(let i = 0; i < files.length; i++){
+        formData.append("file", files[i]);
+    }
+
+    await myPageActivityService.activityRegister(formData);
+
+    modalInput.forEach(modal => {
+        modal.querySelectorAll("input, textarea").forEach(el => el.value = "");
+        modal.querySelectorAll("select").forEach(el => el.selectedIndex = 0);
+
+        activityModal.style.display = "none";
+    });
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

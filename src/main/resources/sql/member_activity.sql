@@ -9,3 +9,5 @@ create table tbl_member_activity (
     constraint fk_member_activity_member foreign key(member_id)
     references tbl_member(id)
 );
+
+select * from tbl_member_activity;

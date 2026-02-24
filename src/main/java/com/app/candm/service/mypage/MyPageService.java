@@ -1,21 +1,26 @@
 package com.app.candm.service.mypage;
 
+import com.app.candm.common.enumeration.FileContentType;
 import com.app.candm.domain.MemberCareerVO;
 import com.app.candm.domain.MemberVO;
+import com.app.candm.dto.FileDTO;
 import com.app.candm.dto.member.MemberDTO;
-import com.app.candm.dto.mypage.MemberCareerDTO;
-import com.app.candm.dto.mypage.MemberEducationDTO;
-import com.app.candm.dto.mypage.MemberWithCareerDTO;
-import com.app.candm.dto.mypage.MemberWithEducationDTO;
-import com.app.candm.repository.mypage.MemberCareerDAO;
-import com.app.candm.repository.mypage.MemberEducationDAO;
+import com.app.candm.dto.mypage.*;
+import com.app.candm.repository.mypage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +29,9 @@ import java.util.Optional;
 public class MyPageService {
     private final MemberCareerDAO memberCareerDAO;
     private final MemberEducationDAO memberEducationDAO;
+    private final MemberActivityDAO memberActivityDAO;
+    private final FileDAO fileDAO;
+    private final MemberActivityFileDAO memberActivityFileDAO;
 
 //    경력 등록
     public void regist(MemberCareerDTO memberCareerDTO){
@@ -82,4 +90,47 @@ public class MyPageService {
         memberEducationDAO.delete(id);
     }
 
+//    ================================================활동===============================================================
+
+//    활동 등록(이미지 포함)
+    public void regist(MemberActivityDTO memberActivityDTO, ArrayList<MultipartFile> multipartFiles){
+        String rootPath = "C:/file/";
+        String todayPath = getTodayPath();
+        String path = rootPath + todayPath;
+
+        FileDTO fileDTO = new FileDTO();
+        MemberActivityFileDTO memberActivityFileDTO = new MemberActivityFileDTO();
+
+        memberActivityDAO.save(memberActivityDTO.toMemberActivityVO());
+        multipartFiles.forEach(multipartFile -> {
+            if(multipartFile.getOriginalFilename().isEmpty()){
+                return;
+            }
+            UUID uuid = UUID.randomUUID();
+            fileDTO.setFilePath(todayPath);
+            fileDTO.setFileSize(String.valueOf(multipartFile.getSize()));
+            fileDTO.setFileOriginalName(multipartFile.getOriginalFilename());
+            fileDTO.setFileName(uuid.toString() + "_" + multipartFile.getOriginalFilename());
+            fileDTO.setFileContentType(multipartFile.getContentType().contains("image") ? FileContentType.IMAGE : FileContentType.OTHER);
+            fileDAO.save(fileDTO);
+
+            memberActivityFileDTO.setId(fileDTO.getId());
+            memberActivityFileDTO.setMemberId(memberActivityDTO.getMemberId());
+            memberActivityFileDAO.save(memberActivityFileDTO.toMemberActivityFileVO());
+            File directory = new File(rootPath + "/" + fileDTO.getFilePath());
+            if(!directory.exists()){
+                directory.mkdirs();
+            }
+            try {
+                multipartFile.transferTo(new File(path, fileDTO.getFileName()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+
+    public String getTodayPath(){
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+    }
 }
